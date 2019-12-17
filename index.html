@@ -33,7 +33,7 @@
 <div class='weui-content'>
   <!--顶部轮播-->
   <div class="swiper-container swiper-banner">
-    <div class="swiper-wrapper">
+    <div class="swiper-wrapper" id="top_img">
       <div class="swiper-slide"><a href="pro_info.html"><img src="upload/ban1.jpg" /></a></div>
       <div class="swiper-slide"><a href="pro_list.html"><img src="upload/ban2.jpg" /></a></div>
       <div class="swiper-slide"><a href="pro_info.html"><img src="upload/ban3.jpg" /></a></div>
@@ -227,3 +227,20 @@
 </script>
 </body>
 </html>
+<script>
+    $(document).ready(function(){
+        $.ajax({
+            url:'http://47.94.20.198/api/imgApi',
+            type : "post",
+            dataType:'jsonp',
+            jsonp: "jsonpCallback",
+            success:function(msg){
+                $("#top_img").empty();
+                $.each(msg,function(k,v){
+                    var tr = '<div class="swiper-slide"><a href="pro_info.html"><img src="'+v.img_url+'" /></a></div>';
+                    $("#top_img").append(tr);
+                });
+            }
+        })
+    })
+</script>
