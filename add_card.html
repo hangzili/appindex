@@ -18,44 +18,68 @@
 </header>
 <div class="weui-content">
   <div class="weui-cell wy-address-edit">
-    <div class="weui-cell__hd"><label for="" class="weui-label wy-lab">卡号</label></div>
-    <div class="weui-cell__bd"><input class="weui-input" type="number" pattern="[0-9]*" value="weui input error" placeholder="请输入卡号"></div>
-    <div class="weui-cell__ft"><i class="weui-icon-warn"></i></div>
+    <div class="weui-cell__hd"><label class="weui-label wy-lab">卡号</label></div>
+    <div class="weui-cell__bd"><input class="weui-input" type="number" name="bank_name"  placeholder="请输入卡号"></div>
   </div>
+
   <div class="weui-cell wy-address-edit">
     <div class="weui-cell__hd"><label class="weui-label wy-lab">持卡人</label></div>
-    <div class="weui-cell__bd"><input class="weui-input" type="number" pattern="[0-9]*" placeholder="陈大鹏"></div>
+    <div class="weui-cell__bd"><input class="weui-input" id="str" type="text" name="user_name"  placeholder="银行预留姓名"></div>
   </div>
+
   <div class="weui-cell wy-address-edit">
     <div class="weui-cell__hd"><label class="weui-label wy-lab">手机号</label></div>
-    <div class="weui-cell__bd"><input class="weui-input" type="number" pattern="[0-9]*" placeholder="18951263540"></div>
+    <div class="weui-cell__bd"><input class="weui-input" type="number" name="bank_tel"  placeholder="银行预留手机号"></div>
   </div>
   <div class="weui-btn-area">
-   <a href="add_card.html" class="weui-btn weui-btn_plain-default">保存此银行卡</a>
+    <input type="button" name="btn"  id="sub" value="保存此银行卡" class="weui-btn weui-btn_plain-default" >
   </div>
 </div>
 
 <script src="lib/jquery-2.1.4.js"></script> 
 <script src="lib/fastclick.js"></script> 
 <script type="text/javascript" src="js/jquery.Spinner.js"></script>
+
+<script src="js/jquery-weui.js"></script>
+<script>
+
+  $(document).ready(function(){
+    $("input[name='btn']").click(function(){
+      var data = {};
+      var  bank_name = $("input[name='bank_name']").val();
+      var  user_name = $("input[name='user_name']").val();
+      var  bank_tel = $("input[name='bank_tel']").val();
+
+      // alert(s_show);
+      data. bank_name =  bank_name;
+      data.user_name =  user_name;
+      data. bank_tel =  bank_tel;
+      // console.log(data);
+
+      $.ajax({
+        data : data,
+        dataType : "json",
+        url : "http://www.mui.com/bank/add",
+        success:function(res){
+          if (res==1){
+            alert('银行卡保存成功');
+            location.href="#";
+          }else if(res==2){
+            alert('银行卡保存失败');
+            location.href="#";
+          }
+        }
+      });
+    });
+  });
+</script>
+
 <script>
   $(function() {
     FastClick.attach(document.body);
   });
 </script>
 
-<script src="js/jquery-weui.js"></script>
-<script>
-$(document).on("click", ".card-opt", function() {
-        $.actions({
-          actions: [
-            {
-              text: "删除",
-              className: 'bg-danger',
-            }
-          ]
-        });
-      });
-</script>
+
 </body>
 </html>

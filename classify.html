@@ -54,7 +54,7 @@
   </aside>
   <section class="menu-right padding-all j-content">
     <h5>酒水食品</h5>
-    <ul>
+    <ul id="data">
       <li class="w-3"><a href="pro_list.html"></a> <img src="upload/pro3.jpg"><span>酒水食品</span></li>
       <li class="w-3"><a href="pro_list.html"></a> <img src="upload/pro3.jpg"><span>酒水食品</span></li>
       <li class="w-3"><a href="pro_list.html"></a> <img src="upload/pro3.jpg"><span>酒水食品</span></li>
@@ -408,6 +408,24 @@
 			$('.j-content').eq(index).show().siblings('.j-content').hide();
 		})
 	})
+</script>
+<script>
+  $(document).ready(function () {
+    $.ajax({
+      url:" ",
+      type:"post",
+      dataType:'jsonp',
+      jsonp:"jspnpCallback",
+      success:function (msg) {
+        $.each(msg,function(k,v){
+          var tr =' <li class="w-3"><a href="pro_list.html"></a> <img src="'+v.img+'"><span>'+v.name+'</span></li>'
+		  $("#data").append(tr);
+        })
+      }
+    })
+
+  })
+
 </script>
 </body>
 </html>

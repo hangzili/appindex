@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>商城登录</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+<link rel="stylesheet" href="lib/weui.min.css">
+<link rel="stylesheet" href="css/jquery-weui.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body ontouchstart>
+<!--主体-->
+<header class="wy-header">
+  <div class="wy-header-icon-back"><span></span></div>
+ <h3> <div class="wy-header-title">登陆</div></h3>
+</header>
+<div class="weui-content">
+  <div class="weui-cells weui-cells_form wy-address-edit">
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><label class="weui-label wy-lab">昵称</label></div>
+      <div class="weui-cell__bd"><input class="weui-input" type="text" name="user_name" pattern="[0-9]*" placeholder="昵称"></div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><label class="weui-label wy-lab">密码</label></div>
+      <div class="weui-cell__bd"><input class="weui-input" type="password" name="user_pwd" pattern="[0-9]*" placeholder="请输登录密码"></div>
+    </div>
+  </div>
+  <div class="weui-btn-area">
+    <input type="button" name="btn"  id="sub" value="登录" class="weui-btn weui-btn_warn">
+  </div>
+</div>
+
+<script src="lib/jquery-2.1.4.js"></script> 
+<script src="lib/fastclick.js"></script> 
+<script type="text/javascript" src="js/jquery.Spinner.js"></script>
+<script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+</script>
+
+<script src="js/jquery-weui.js"></script>
+<script>
+  $(document).ready(function(){
+    $("input[name='btn']").click(function(){
+      var data = {};
+      var  user_name = $("input[name='user_name']").val();
+      var  user_pwd = $("input[name='user_pwd']").val();
+      // data.json="1";
+      data. user_name =  user_name;
+      data.user_pwd =  user_pwd;
+      console.log(data);
+
+      $.ajax({
+        data : data,
+        dataType : "json",
+        url : "http://www.mui.com/Login/login",
+        success:function(res){
+          if (res==1){
+            alert('登录成功');
+            location.href="#";
+          }else if(res==2){
+            alert('登录失败');
+            location.href="#";
+          }
+        }
+      });
+    });
+  });
+</script>
+
+</center>
+</body>
+</html>
