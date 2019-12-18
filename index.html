@@ -237,7 +237,7 @@
             success:function(msg){
                 $("#top_img").empty();
                 $.each(msg,function(k,v){
-                    var tr = '<div class="swiper-slide" style="height:170px"><a href="pro_info.html"><img src="http://47.94.20.198'+v.img_url+'" /></a></div>';
+                    var tr = '<div class="swiper-slide" style="height:180px"><a href="pro_info.html"><img src="http://47.94.20.198'+v.img_url+'" /></a></div>';
                     $("#top_img").append(tr);
                 });
             }

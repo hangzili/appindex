@@ -44,27 +44,26 @@
 <script>
 
   $(document).ready(function(){
+     
     $("input[name='btn']").click(function(){
       var data = {};
       var  bank_name = $("input[name='bank_name']").val();
       var  user_name = $("input[name='user_name']").val();
       var  bank_tel = $("input[name='bank_tel']").val();
 
-      // alert(s_show);
       data. bank_name =  bank_name;
       data.user_name =  user_name;
       data. bank_tel =  bank_tel;
-      // console.log(data);
 
       $.ajax({
         data : data,
         dataType : "json",
-        url : "http://www.mui.com/bank/add",
+        url : "http://47.94.20.198/api/addbakeApi",
         success:function(res){
-          if (res==1){
+          if (res.code==200){
             alert('银行卡保存成功');
             location.href="#";
-          }else if(res==2){
+          }else{
             alert('银行卡保存失败');
             location.href="#";
           }

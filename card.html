@@ -17,14 +17,10 @@
   <div class="wy-header-title">银行卡管理</div>
 </header>
 <div class="weui-content">
-  <div class="weui-cells cardlist">
+  <div class="weui-cells cardlist" id="list">
     <a class="weui-cell weui-cell_access card-opt" href="javascript:;">
       <div class="weui-cell__bd"><p>622202******35754</p></div>
       <div class="weui-cell__ft">工商银行</div>
-    </a>
-    <a class="weui-cell weui-cell_access card-opt" href="javascript:;">
-      <div class="weui-cell__bd"><p>622202******35754</p></div>
-      <div class="weui-cell__ft">民丰银行</div>
     </a>
   </div>
   <div class="weui-btn-area">
@@ -50,9 +46,28 @@ $(document).on("click", ".card-opt", function() {
               text: "删除",
               className: 'bg-danger',
             }
-          ]
+          ],
         });
+        //银行卡的删除
+        $(".bg-danger").click(function(){
+            alert('嘿，老子不让你删');
+        })
       });
 </script>
 </body>
 </html>
+<script>
+    $("document").ready(function(){
+        
+        $.ajax({
+          dataType : "json",
+          url : "http://47.94.20.198/api/listbakeApi",
+          success:function(res){
+            $.each(res,function(k,v){
+                var tr = '<a class="weui-cell weui-cell_access card-opt" href="javascript:;"><div class="weui-cell__bd"><p>'+v.bank_name+'</p></div><div class="weui-cell__ft">工商银行</div></a>';
+                $("#list").append(tr);
+            })
+          },
+        });
+    })
+</script>

@@ -72,23 +72,27 @@
       var  user_pwd = $("input[name='user_pwd']").val();
       var  user_pwd2 = $("input[name='user_pwd2']").val();
       var  user_email = $("input[name='user_email']").val();
-      // data.json="1";
+      if(user_name==""){
+          alert('用户名不能为空');return;
+      }
+      if(user_pwd==""){
+          alert('用户密码不能为空');return;
+      }
       data. user_name =  user_name;
       data.user_pwd =  user_pwd;
       data.user_pwd2 =  user_pwd2;
       data.user_email =  user_email;
-      // console.log(data);
 
       $.ajax({
         data : data,
-        dataType : "json",
-        url : "http://www.mui.com/Login/regist_do",
+        dataType:'json',
+        url : "http://47.94.20.198/api/registApi",
         success:function(res){
-          if (res==1){
-            alert('注册成功');
+          if (res=="注册成功"){
+            alert(res);
             location.href="#";
-          }else if(res==2){
-            alert('注册失败');
+          }else{
+            alert(res);
             location.href="#";
           }
         }

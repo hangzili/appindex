@@ -56,15 +56,16 @@
 
       $.ajax({
         data : data,
-        dataType : "json",
-        url : "http://www.mui.com/Login/login",
+        dataType:'json',
+        url : "http://47.94.20.198/api/loginApi",
         success:function(res){
-          if (res==1){
-            alert('登录成功');
+          if (res=="登陆成功"){
+              //登陆成功后跳转
+            alert(res);
             location.href="#";
-          }else if(res==2){
-            alert('登录失败');
-            location.href="#";
+          }else{
+             //登陆失败
+            alert(res);
           }
         }
       });
