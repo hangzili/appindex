@@ -18,7 +18,7 @@
   <div class="wy-header-title">地址管理</div>
 </header>
 <div class="weui-content">
-  <div class="weui-panel address-box">
+  <div class="weui-panel address-box" id="address">
     <div class="weui-panel__bd">
       <div class="weui-media-box weui-media-box_text address-list-box">
         <a href="address_edit.html" class="address-edit"></a>
@@ -66,3 +66,24 @@
 <script src="js/jquery-weui.js"></script>
 </body>
 </html>
+<script>
+	$("document").ready(function(){
+			$.ajax({
+			    url:'http://47.94.20.198/address/list',
+			    type : "post",
+			    dataType:'json',
+			    //jsonp: "jsonpCallback",
+			    success:function(msg){
+			         $("#address").empty();
+			        $.each(msg,function(k,v){
+			            var tr = '<div class="weui-panel__bd"><div class="weui-media-box weui-media-box_text address-list-box"><a href="address_edit.html" class="address-edit"></a><h4 class="weui-media-box__title"><span>'+v.address_name+'</span><span>'+v.tel+'</span></h4><p class="weui-media-box__desc address-txt">'+v.a_address+'</p></div></div>';
+						// var t = 'if(v.is_default==0){ <span class="default-add">默认地址</span> }';
+						if(v.is_default==0){
+							var tr=tr+'<span class="default-add">默认地址</span>';
+						}
+			            $("#address").append(tr);
+			        });
+			    }
+			})
+	})
+</script>
