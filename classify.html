@@ -65,30 +65,30 @@
 </script>
 <script src="js/jquery-weui.js"></script>
 <script type="text/javascript">
-	// $(function($){
-	// 	// $.onclick=function(){
-	// 	// 	alert(1);
-	// 	// }
-		// $('#sidebar ul li').click(function(){
-		// 	$(this).addClass('active').siblings('li').removeClass('active');
-		// 	var index = $(this).index();
-		// 	$('.j-content').eq(index).show().siblings('.j-content').hide();
-		// })
+	$(function($){
+		// $.onclick=function(){
+		// 	alert(1);
+		// }
+		$('#sidebar ul li').click(function(){
+			$(this).addClass('active').siblings('li').removeClass('active');
+			var index = $(this).index();
+			$('.j-content').eq(index).show().siblings('.j-content').hide();
+		})
 </script>
 <script>
   $(document).ready(function () {
-    // $.ajax({
-    //   url:" ",
-    //   type:"post",
-    //   dataType:'jsonp',
-    //   jsonp:"jspnpCallback",
-    //   success:function (msg) {
-    //     $.each(msg,function(k,v){
-    //       var tr =' <li class="w-3"><a href="pro_list.html"></a> <img src=http://47.94.20.198"'+v.img+'"><span>'+v.name+'</span></li>'
-		  // $("#data").append(tr);
-    //     })
-    //   }
-    // })
+    $.ajax({
+      url:" ",
+      type:"post",
+      dataType:'jsonp',
+      jsonp:"jspnpCallback",
+      success:function (msg) {
+        $.each(msg,function(k,v){
+          var tr =' <li class="w-3"><a href="pro_list.html"></a> <img src=http://47.94.20.198"'+v.img+'"><span>'+v.name+'</span></li>'
+		  $("#data").append(tr);
+        })
+      }
+    })
 
   })
 
@@ -141,11 +141,9 @@
 								var ul = '<ul class="'+data+'"></ul>';
 								$(".h5s"+data).after(ul);
 						        $.each(msg,function(k,v){
-<<<<<<< HEAD
 									var li  = "<li class='w-3'><a href='pro_list.html'></a> <img src='http://47.94.20.198"+v.g_img+"'><span>"+v.g_name+"</span></li>";
-=======
-									var li  = "<li class='w-3'><a href='pro_info.html?goods_id="+v.goods_id+"></a> <img src='http://47.94.20.198"+v.g_img+"'><span>"+v.g_name+"</span></li>";
->>>>>>> 347b43a96d8ee4a91444ea91014fe7c17cffaeb6
+
+
 									$("."+data).append(li);
 								});
 								

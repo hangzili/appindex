@@ -120,13 +120,13 @@ $(document).ready(function () {
 <script>
 	$(document).ready(function(){
 		$.ajax({
-			    url:'http://www.mui.com/api/carApi',
+			    url:'http://47.94.20.198/api/carApi',
 			    type : "post",
 			    dataType:'json',
 			    success:function(msg){
 			        $("#list").empty();
 			        $.each(msg,function(k,v){
-					  var awm ='<div class="weui-panel weui-panel_access"><div class="weui-panel__hd"><span>'+v.g_name+'</span><a href="javascript:;" class="wy-dele"></a></div><div class="weui-panel__bd"><div class="weui-media-box_appmsg pd-10"><div class="weui-media-box__hd check-w weui-cells_checkbox"><label class="weui-check__label" for="cart-pto4"><div class="weui-cell__hd cat-check"><input type="checkbox" class="weui-check" name="cartpro" id="cart-pto4"><i class="weui-icon-checked"></i></div></label></div><div class="weui-media-box__hd"><a href="pro_info.html"><img class="weui-media-box__thumb" src="http://www.mui.com'+v.g_img+'" alt=""></a></div><div class="weui-media-box__bd"><h1 class="weui-media-box__desc"><a href="pro_info.html" class="ord-pro-link">'+v.g_desc+'</a></h1><p class="weui-media-box__desc">规格：<span>红色</span>，<span>23</span></p><div class="clear mg-t-10"><div class="wy-pro-pri fl">¥<em class="num font-15">'+v.g_price+'</em></div> <div class="pro-amount fr"><div class="Spinner"></div></div></div></div></div></div></div></div>';
+					  var awm ='<div class="weui-panel weui-panel_access"><div class="weui-panel__hd"><span>'+v.g_name+'</span><a href="javascript:;" class="wy-dele"></a></div><div class="weui-panel__bd"><div class="weui-media-box_appmsg pd-10"><div class="weui-media-box__hd check-w weui-cells_checkbox"><label class="weui-check__label" for="cart-pto4"><div class="weui-cell__hd cat-check"><input type="checkbox" class="weui-check" name="cartpro" id="cart-pto4"><i class="weui-icon-checked"></i></div></label></div><div class="weui-media-box__hd"><a href="pro_info.html"><img class="weui-media-box__thumb" src="http://47.94.20.198'+v.g_img+'" alt=""></a></div><div class="weui-media-box__bd"><h1 class="weui-media-box__desc"><a href="pro_info.html" class="ord-pro-link">'+v.g_desc+'</a></h1><p class="weui-media-box__desc">规格：<span>红色</span>，<span>23</span></p><div class="clear mg-t-10"><div class="wy-pro-pri fl">¥<em class="num font-15">'+v.g_price+'</em></div> <div class="pro-amount fr"><div class="Spinner"></div></div></div></div></div></div></div></div>';
 			            $("#list").append(awm);
 			        });
 			    }
