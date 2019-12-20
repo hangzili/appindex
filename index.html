@@ -42,7 +42,7 @@
     <div class="swiper-pagination"></div>
   </div>
   <!--图标分类-->
-  <div class="weui-flex wy-iconlist-box">
+  <div class="weui-flex wy-iconlist-box" id="essence">
     <div class="weui-flex__item"><a href="pro_list.html" class="wy-links-iconlist"><div class="img"><img src="images/icon-link1.png"></div><p>精选推荐</p></a></div>
     <div class="weui-flex__item"><a href="pro_list.html" class="wy-links-iconlist"><div class="img"><img src="images/icon-link2.png"></div><p>酒水专场</p></a></div>
     <div class="weui-flex__item"><a href="all_orders.html" class="wy-links-iconlist"><div class="img"><img src="images/icon-link3.png"></div><p>订单管理</p></a></div>
@@ -62,10 +62,10 @@
   </div>
   <!--精选推荐-->
   <div class="wy-Module">
-    <div class="wy-Module-tit"><span>精选推荐</span></div>
+    <div class="wy-Module-tit"><span>热销商品推荐</span></div>
     <div class="wy-Module-con">
-      <div class="swiper-container swiper-jingxuan" style="padding-top:34px;">
-        <div class="swiper-wrapper">
+      <div class="swiper-container swiper-jingxuan swiper-banner" style="padding-top:34px;">
+        <div class="swiper-wrapper" id="boutique">
           <div class="swiper-slide"><a href="pro_info.html"><img src="upload/jingxuan1.jpg" /></a></div>
           <div class="swiper-slide"><a href="pro_info.html"><img src="upload/jingxuan2.jpg" /></a></div>
           <div class="swiper-slide"><a href="pro_info.html"><img src="upload/jingxuan3.jpg" /></a></div>
@@ -78,11 +78,11 @@
     </div>
   </div>
   <!--酒水专场-->
-  <div class="wy-Module">
+  <!-- <div class="wy-Module">
     <div class="wy-Module-tit"><span>酒水推荐</span></div>
     <div class="wy-Module-con">
       <div class="swiper-container swiper-jiushui" style="padding-top:34px;">
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper" id="alcohol">
           <div class="swiper-slide"><a href="pro_info.html"><img src="upload/jingxuan1.jpg" /></a></div>
           <div class="swiper-slide"><a href="pro_info.html"><img src="upload/jingxuan2.jpg" /></a></div>
           <div class="swiper-slide"><a href="pro_info.html"><img src="upload/jingxuan3.jpg" /></a></div>
@@ -99,12 +99,12 @@
         <div class="swiper-pagination jingxuan-pagination"></div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!--猜你喜欢-->
   <div class="wy-Module">
     <div class="wy-Module-tit-line"><span>猜你喜欢</span></div>
     <div class="wy-Module-con">
-      <ul class="wy-pro-list clear">
+      <ul class="wy-pro-list clear" id="like">
         <li>
           <a href="pro_info.html">
             <div class="proimg"><img src="upload/pro1.jpg"></div>
@@ -229,6 +229,7 @@
 </html>
 <script>
     $(document).ready(function(){
+		//顶部图片
         $.ajax({
             url:'http://47.94.20.198/api/imgApi',
             type : "post",
@@ -242,5 +243,48 @@
                 });
             }
         })
+		//一级导航（顶部图标）
+		$.ajax({
+		    url:'http://47.94.20.198/api/catApi',
+		    type : "post",
+		    dataType:'json',
+		    //jsonp: "jsonpCallback",
+		    success:function(msg){
+		        $("#essence").empty();
+		        $.each(msg,function(k,v){
+					var tr = '<div class="weui-flex__item"><a href="pro_list.html?cat_id='+v.cat_id+'" class="wy-links-iconlist"><div class="img"><img src="http://47.94.20.198'+v.c_img+'"></div><p>'+v.c_name+'</p></a></div>';
+		            $("#essence").append(tr);
+					// console.log(tr);
+		        });
+		    }
+		})
+		//精品推荐
+		$.ajax({
+		    url:'http://47.94.20.198/api/highApi',
+		    type : "post",
+		    dataType:'json',
+		    //jsonp: "jsonpCallback",
+		    success:function(msg){
+		         $("#boutique").empty();
+		        $.each(msg,function(k,v){
+					var tr = '<div class="swiper-slide" style="height:180px"><a href="pro_info.html?goods_id='+v.goods_id+'"><img src="http://47.94.20.198'+v.g_img+'" /></a></div>';
+		            $("#boutique").append(tr);
+		        });
+		    }
+		})
+		//猜你喜欢
+		$.ajax({
+		    url:'http://47.94.20.198/api/likeApi ',
+		    type : "post",
+		    dataType:'json',
+		    //jsonp: "jsonpCallback",
+		    success:function(msg){
+		        $("#like").empty();
+		        $.each(msg,function(k,v){
+		            var tr = '<li><a href="pro_info.html?goods_id='+v.goods_id+'"><div class="proimg"><img src="http://47.94.20.198'+v.g_img+'"></div><div class="protxt"><div class="name">'+v.g_desc+'</div><div class="wy-pro-pri">¥<span>'+v.g_price+'</span></div></div></a></li>';
+		            $("#like").append(tr);
+		        });
+		    }
+		})
     })
 </script>
