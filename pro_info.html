@@ -421,11 +421,10 @@ aniHovertree();
             success:function(msgg){
         		$("#skua").empty();
         		$.each(msgg,function(k,v){
-        		    var span = '<div class="weui-media-box__hd proinfo-txt-l"><span class="promotion-label-tit">'+v.t_name+'</span></div><div class="weui-media-box__bd"><div class="promotion-sku clear"><ul class="'+k+'"></ul></div></div></div>';
-                     
+        		    var span = '<div class="weui-media-box__hd proinfo-txt-l"><span class="promotion-label-tit" t_id='+v.t_id+'>'+v.t_name+'</span></div><div class="weui-media-box__bd"><div class="promotion-sku clear"><ul class="'+k+'"></ul></div></div></div>';
         		    $("#skua").append(span);
                     $.each(v['0'],function(kk,vv){
-                         var li='<li><a href="javascript:;">'+vv.a_name+'</a></li>';
+                         var li='<li><a href="javascript:;" a_id='+vv.a_id+'>'+vv.a_name+'</a></li>';
                          $("."+k).append(li);
                      })
         		});

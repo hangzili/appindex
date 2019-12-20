@@ -141,7 +141,7 @@
 								var ul = '<ul class="'+data+'"></ul>';
 								$(".h5s"+data).after(ul);
 						        $.each(msg,function(k,v){
-									var li  = "<li class='w-3'><a href='pro_list.html'></a> <img src='http://47.94.20.198"+v.g_img+"'><span>"+v.g_name+"</span></li>";
+									var li  = "<li class='w-3'><a href='pro_info.html?goods_id="+v.goods_id+"></a> <img src='http://47.94.20.198"+v.g_img+"'><span>"+v.g_name+"</span></li>";
 									$("."+data).append(li);
 								});
 								
