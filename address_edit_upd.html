@@ -61,6 +61,22 @@
 <script src="js/jquery-weui.js"></script>
 <script src="js/city-picker.js"></script>
 <script>
+    //修改页面的展示
+    $(document).ready(function(){
+        var url = window.location.href;
+        var arr = url.split('=');
+        var access_id = arr['1'];
+        $.ajax({
+            url:'',
+            type : "post",
+            data : {access_id:access_id},
+            dataType : 'json',
+            success:function(res){
+                 
+            }
+        })
+</script>
+<script>
       $("#address").cityPicker({
         title: "选择出发地",
         onChange: function (picker, values, displayValues) {
@@ -72,6 +88,9 @@
           var tel=$('input[name="tel"]').val();
           var city=$('input[name="city"]').val();
           var a_address=$('textarea').val();
+          var url = window.location.href;
+          var arr = url.split('=');
+          var access_id = arr['1'];
           var is_default=$('input[name="is_default"]:checked').val();
           var data = {};
           data.address_name=address_name;
@@ -79,8 +98,7 @@
           data.a_address=a_address;
           data.is_default=is_default;
           data.city=city;
-          // json_encode(data);
-          // console.log(data);
+          data.access_id=access_id;
           $.ajax({
             type : "post",
             data : data,

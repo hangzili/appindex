@@ -29,10 +29,10 @@
     <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
   </div>
   <div class="pro-sort">
-    <div class="weui-flex">
+    <div class="weui-flex" id=pro>
       <div class="weui-flex__item"><div class="placeholder NormalCss">综合</div></div>
-      <div class="weui-flex__item"><div class="placeholder SortAscCss">按销量</div></div>
-      <div class="weui-flex__item"><div class="placeholder SortDescCss">按价格</i></div></div>
+      <div class="weui-flex__item"><div class="placeholder SortAscCss" id="g_num" order="desc">按销量</div></div><!--按照库存-->
+      <div class="weui-flex__item"><div class="placeholder SortDescCss" id="g_price" order="desc">按价格</i></div></div>
     </div>
   </div>
 </header>
@@ -60,7 +60,7 @@
         </div>
       </a>
     </div>
-    <div class="pro-items">
+    <div  class="pro-items">
       <a href="pro_info.html" class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd"><img class="weui-media-box__thumb" src="upload/pro3.jpg" alt=""></div>
         <div class="weui-media-box__bd">
@@ -73,7 +73,7 @@
         </div>
       </a>
     </div>
-    <div class="pro-items">
+    <div class="pro-items" >
       <a href="pro_info.html" class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd"><img class="weui-media-box__thumb" src="upload/pro3.jpg" alt=""></div>
         <div class="weui-media-box__bd">
@@ -167,6 +167,7 @@
 </html>
 <script>
     $(document).ready(function(){
+<<<<<<< HEAD
         $.ajax({
             url:'',
             type:'post',
@@ -191,3 +192,97 @@
         })
     })
 </script>
+=======
+<<<<<<< Updated upstream
+		$.ajax({
+			    url:'http://47.94.20.198/ ',
+			    type : "post",
+			    dataType:'json',
+			    //jsonp: "jsonpCallback",
+			    success:function(msg){
+			        $("#list").empty();
+			        $.each(msg,function(k,v){
+			          var tr =' <div class="pro-items" id="suf"><a href="pro_info.html" class="weui-media-box weui-media-box_appmsg"><div class="weui-media-box__hd"><img class="weui-media-box__thumb" src="http://47.94.20.198'+v.g_img+'" alt=""></div><div class="weui-media-box__bd"> <h1 class="weui-media-box__desc">'+v.g_name+'</h1> <div class="wy-pro-pri">¥<em class="num font-15">'+v.g_price+'</em></div> <ul class="weui-media-box__info prolist-ul"> <li class="weui-media-box__info__meta"><em class="num">0</em>条评价</li> <li class="weui-media-box__info__meta"><em class="num">100%</em>好评</li> </ul> </div> </a> </div>';
+			            $("list").append(tr);
+			        });
+			    }
+			})
+			
+			
+	
+		$("#pro").on('click',"div",function(){
+		
+		// alert(1111);
+		
+		});
+				
+				
+				
+				
+				})
+=======
+        //商品展示
+        $.ajax({
+            url:'http://47.94.20.198/api/goods',
+            type:'post',
+            dataType:'json',
+            success:function(msg){
+                // alert(3);
+                $("#list").empty();
+                $.each(msg,function(k,v){
+                    var list = '<div class="pro-items"><a href="pro_info.html?goods_id='+v.goods_id+'" class="weui-media-box weui-media-box_appmsg"><div class="weui-media-box__hd"><img class="weui-media-box__thumb" src="http://47.94.20.198'+v.g_img+'" alt=""></div><div class="weui-media-box__bd"><h1 class="weui-media-box__desc">'+v.g_name+'</h1><div class="wy-pro-pri">¥<em class="num font-15">'+v.g_price+'</em></div><ul class="weui-media-box__info prolist-ul"><li class="weui-media-box__info__meta"><em class="num">0</em>条评价</li><li class="weui-media-box__info__meta"><em class="num">100%</em>好评</li></ul></div></a></div>';
+                    $("#list").append(list);
+                })
+            }
+        })
+        //点击按销量按照库存给排序
+        $("#g_num").click(function(){
+            var order = $(this).attr('order');
+            $.ajax({
+                url:'http://47.94.20.198/api/goods_2',
+                data:{order:order},
+                type : "post",
+                dataType:'json',
+                success:function(msg){
+                    // alert(2);
+                    $("#list").empty();
+                    $.each(msg,function(k,v){
+                        var list = '<div class="pro-items"><a href="pro_info.html?goods_id='+v.goods_id+'" class="weui-media-box weui-media-box_appmsg"><div class="weui-media-box__hd"><img class="weui-media-box__thumb" src="http://47.94.20.198'+v.g_img+'" alt=""></div><div class="weui-media-box__bd"><h1 class="weui-media-box__desc">'+v.g_name+'</h1><div class="wy-pro-pri">¥<em class="num font-15">'+v.g_price+'</em></div><ul class="weui-media-box__info prolist-ul"><li class="weui-media-box__info__meta"><em class="num">0</em>条评价</li><li class="weui-media-box__info__meta"><em class="num">100%</em>好评</li></ul></div></a></div>';
+                        $("#list").append(list);
+                        if($("#g_num").attr('order')=='desc'){
+                            $("#g_num").attr('order','asc');
+                        }else{
+                            $("#g_num").attr('order','desc');
+                        }
+                        
+                    })
+                }
+            })
+        })
+        //点击价格按照价格给排序
+        $("#g_price").click(function(){
+            var order = $(this).attr('order');
+            $.ajax({
+                url:'http://47.94.20.198/api/goods_3',
+                data:{order:order},
+                type:'post',
+                dataType:'json',
+                success:function(msg){
+                    console.log(2);
+                    $("#list").empty();
+                    $.each(msg,function(k,v){
+                        var list = '<div class="pro-items"><a href="pro_info.html?goods_id='+v.goods_id+'" class="weui-media-box weui-media-box_appmsg"><div class="weui-media-box__hd"><img class="weui-media-box__thumb" src="http://47.94.20.198'+v.g_img+'" alt=""></div><div class="weui-media-box__bd"><h1 class="weui-media-box__desc">'+v.g_name+'</h1><div class="wy-pro-pri">¥<em class="num font-15">'+v.g_price+'</em></div><ul class="weui-media-box__info prolist-ul"><li class="weui-media-box__info__meta"><em class="num">0</em>条评价</li><li class="weui-media-box__info__meta"><em class="num">100%</em>好评</li></ul></div></a></div>';
+                        $("#list").append(list);
+                        if($("#g_price").attr('order')=='desc'){
+                            $("#g_price").attr('order','asc');
+                        }else{
+                            $("#g_price").attr('order','desc');
+                        }
+                    })
+                }
+            })
+        })
+    })
+</script>
+>>>>>>> Stashed changes
+>>>>>>> 7eef82945144225fca916658a56756ea00e09438
