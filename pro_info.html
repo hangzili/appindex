@@ -309,7 +309,7 @@
 </div>
 
 <script src="lib/jquery-2.1.4.js"></script> 
-<script src="lib/fastclick.js"></script> 
+<script src="lib/fastclick.js"></script>
 <script>
   $(function() {
     FastClick.attach(document.body);
@@ -432,5 +432,28 @@ aniHovertree();
         })
         
     })
-    
+    $(".promotion-foot-menu-label").click(function(){
+		 var url = window.location.href;
+		 var arr = url.split('=');
+		 var goods_id = arr['1'];
+		 // alert(goods_id);
+		 var data={};
+			data.goods_id = goods_id;
+		 $.ajax({
+			 url:"http://www.app.com/car/add",
+			 data:data,
+			 type:'post',
+			 dataType:'json',//返回的类型
+			 success:function(res){ 						
+				if(res==1){
+					$(".weui-msg__title").text("加入购物车成功");
+				}else{
+					$(".weui-msg__title").text("加入购物车失败，再试一次吧！");
+				}
+			 }
+		 })
+		
+	})
 </script>
+ 
+ <script src="lib/fastclick.js"></script>
