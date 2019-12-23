@@ -27,11 +27,7 @@
         
         <div class="swiper-container swiper-zhutu">
           <div class="swiper-wrapper" id="img">
-            <div class="swiper-slide"><img src="upload/zhutu01.jpg" /></div>
-            <div class="swiper-slide"><img src="upload/zhutu02.jpg" /></div>
-            <div class="swiper-slide"><img src="upload/zhutu03.jpg" /></div>
-            <div class="swiper-slide"><img src="upload/zhutu04.jpg" /></div>
-            <div class="swiper-slide"><img src="upload/zhutu05.jpg" /></div>
+            
           </div>
           <div class="swiper-pagination swiper-zhutu-pagination"></div>
         </div>
@@ -413,32 +409,7 @@ aniHovertree();
         })
         
     })
-    $(".promotion-foot-menu-label").click(function(){
-		 var url = window.location.href;
-		 var arr = url.split('=');
-		 var goods_id = arr['1'];
-		 // alert(goods_id);
-		 var data={};
-			data.goods_id = goods_id;
-		 $.ajax({
-			 url:"http://www.app.com/car/add",
-			 data:data,
-			 type:'post',
-			 dataType:'json',//返回的类型
-			 success:function(res){ 						
-				if(res==1){
-					$(".weui-msg__title").text("加入购物车成功");
-				}else{
-					$(".weui-msg__title").text("加入购物车失败，再试一次吧！");
-				}
-			 }
-		 })
-		
-	})
+    
 </script>
  
-<<<<<<< HEAD
  <script src="lib/fastclick.js"></script>
-=======
- <script src="lib/fastclick.js"></script>
->>>>>>> 7eef82945144225fca916658a56756ea00e09438
