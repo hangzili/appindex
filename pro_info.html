@@ -409,7 +409,11 @@ aniHovertree();
         })
         
     })
-    
+    $(document).on("click",".promotion-sku ul li",function(){
+        $(this).siblings().attr("class","");
+        $(this).attr("class","active");
+        
+    })
 </script>
  
  <script src="lib/fastclick.js"></script>
