@@ -73,7 +73,11 @@
 </script>
 <script type="text/javascript">
 $(function(){
-	$(".Spinner").Spinner({value:1, len:3, max:999});
+	// $(".Spinner").Spinner();
+    $(".Spinner").click(function(){
+        var a=$(this).find(".Amount").val();
+        alert(a);
+    })
 });
 </script>
 <script src="js/jquery-weui.js"></script>
@@ -106,10 +110,25 @@ $(document).ready(function () {
 </script>
 <script>
       $(document).on("click", ".wy-dele", function() {
-        $.confirm("您确定要把此商品从购物车删除吗?", "确认删除?", function() {
+          var goods_id = $(this).attr('goods_id');
+          var _this=$(this);
+          $.confirm("您确定要把此商品从购物车删除吗?", "确认删除?", function() {
+          
+          // 删除
+          $.ajax({
+              url:'',
+              data:{goods_id,goods_id},
+              type : "post",
+              dataType:'json',
+              success:function(msg){
+                 _this.parents('.weui-panel_access').hide();
+              }
+          })
           $.toast("文件已经删除!");
+          
         }, function() {
           //取消操作
+          //alert(1);
         });
       });
 
@@ -117,25 +136,116 @@ $(document).ready(function () {
 
 </body>
 </html>
+
 <script>
 	$(document).ready(function(){
+        
 		$.ajax({
-			    url:'http://47.94.20.198/api/carApi',
-			    type : "post",
-			    dataType:'json',
-			    success:function(msg){
-			        $("#list").empty();
-			        $.each(msg,function(k,v){
-					  var awm ='<div class="weui-panel weui-panel_access"><div class="weui-panel__hd"><span>'+v.g_name+'</span><a href="javascript:;" class="wy-dele"></a></div><div class="weui-panel__bd"><div class="weui-media-box_appmsg pd-10"><div class="weui-media-box__hd check-w weui-cells_checkbox"><label class="weui-check__label" for="cart-pto4"><div class="weui-cell__hd cat-check"><input type="checkbox" class="weui-check" name="cartpro" id="cart-pto4"><i class="weui-icon-checked"></i></div></label></div><div class="weui-media-box__hd"><a href="pro_info.html"><img class="weui-media-box__thumb" src="http://47.94.20.198'+v.g_img+'" alt=""></a></div><div class="weui-media-box__bd"><h1 class="weui-media-box__desc"><a href="pro_info.html" class="ord-pro-link">'+v.g_desc+'</a></h1><p class="weui-media-box__desc">规格：<span>红色</span>，<span>23</span></p><div class="clear mg-t-10"><div class="wy-pro-pri fl">¥<em class="num font-15">'+v.g_price+'</em></div> <div class="pro-amount fr"><div class="Spinner"></div></div></div></div></div></div></div></div>';
-			            $("#list").append(awm);
-			        });
-			    }
-			})
-	
+            url:'http://47.94.20.198/api/carApi',
+            type : "post",
+            dataType:'json',
+            success:function(msg){
+              list(msg);
+            }
+		})
+        function list(msg){
+            $("#list").empty();
+            $.each(msg,function(k,v){
+              var awm ='<div class="weui-panel weui-panel_access"><div class="weui-panel__hd"><span>'+v.g_name+'</span><a href="#" goods_id='+v.goods_id+' class="wy-dele" goods_id='+v.goods_id+'></a></div><div class="weui-panel__bd"><div class="weui-media-box_appmsg pd-10"><div class="weui-media-box__hd check-w" id="checket"><input type="checkbox" class="check" goods_id="'+v.goods_id+'"><label class="weui-check__label" for="cart-pto4"><div class="weui-cell__hd cat-check"><input type="checkbox" class="weui-check" name="cartpro" id="cart-pto4"><i class="weui-icon-checked"></i></div></label></div><div class="weui-media-box__hd"><a href="pro_info.html?goods_id='+v.goods_id+'"><img class="weui-media-box__thumb" src="http://47.94.20.198'+v.g_img+'" alt=""></a></div><div class="weui-media-box__bd"><h1 class="weui-media-box__desc"><a href="pro_info.html?goods_id='+v.goods_id+'" class="ord-pro-link">'+v.g_desc+'</a></h1><p class="weui-media-box__desc">规格：<span>红色</span>，<span>23</span></p><div class="clear mg-t-10"><div class="wy-pro-pri fl">¥<em class="num font-15">'+v.g_price+'</em></div> <div class="pro-amount fr"><div class="Spinner'+v.goods_id+' Spinner" goods_id='+v.goods_id+'></div></div></div></div></div></div></div></div>';
+                $("#list").append(awm);
+                //{value:1, len:3, max:999}
+                var goods_id=v.goods_id;
+                //即点即改的展示
+                $.ajax({
+                    url:'http://47.94.20.198/api/gumcum',
+                    data:{goods_id:goods_id},
+                    type : "post",
+                    dataType:'json',
+                    success:function(msg){
+                        $.each(msg,function(k,v){
+                            $(".Spinner"+v.goods_id).Spinner({value:v.c_num, len:2, max:v.g_num});
+                        })
+                    }
+                })
+                
+            });
+            //即点即改的修改
+            // $(".Spinner").click(function(){
+            //     var num=$(this).find(".Amount").val();
+            //     var goods_id = $(this).attr('goods_id');
+            //     $.ajax({
+            //         url:'http://47.94.20.198/api/carupnumApi',
+            //         data:{goods_id:goods_id,num:num},
+            //         dataType:'json',
+            //         type:'post',
+            //         success:function(msg){
+            //             alert(1);
+            //         }
+            //     })
+            // })
+        }
+        $(document).on('click',".check",function(){
+            var goods_num = $(this).parents('.weui-panel__bd').find('.Amount').val();
+            var goods_price = $(this).parents('.weui-panel__bd').find('.font-15').text();
+            var check = $(this).prop('checked');
+            var sum = $("#zong1").text();
+            if(check){
+                //选中
+                var price = goods_num * goods_price;
+            var price = changeTwoDecimal_f(price);
+                var sum = parseInt(sum);
+                var price = parseInt(price);
+                var price = price + sum;
+                var sum = $("#zong1").text(price);
+            }else{
+                //不选中
+                var pricee = goods_num * goods_price;
+                var sum_pricee = sum - pricee;
+                
+                var sum = $("#zong1").text(sum_pricee);
+            }
+        })
+        $(document).on('click','.weui-check',function(){
+            var status=$(this).prop('checked');
+            if(status){
+                var sum = $("#zong1").text("00.00");
+                $('.check').prop('checked',false);
+                $('.check').click();
+                $('.check').prop('checked',status);
+            }else{
+                // $('.check').click();
+                var sum = $("#zong1").text("00.00");
+                $('.check').prop('checked',status);
+            }
+            
+            
+            // var price = 0.00;
+        })
+        //价格的换算
+        function changeTwoDecimal_f(x) 
+        { 
+        　　var f_x = parseFloat(x); 
+        　　if (isNaN(f_x)) 
+        　　{ 
+        　　　　return 0; 
+        　　} 
+        　　var f_x = Math.round(x*100)/100; 
+        　　var s_x = f_x.toString(); 
+        　　var pos_decimal = s_x.indexOf('.'); 
+        　　if (pos_decimal < 0) 
+        　　{ 
+        　　　　pos_decimal = s_x.length; 
+        　　s_x += '.'; 
+        　　} 
+        　　while (s_x.length <= pos_decimal + 2) 
+        　　{ 
+        　　　　s_x += '0'; 
+        　　} 
+        　　return s_x; 
+        }
 	})
-	
-	
-	
 </script>
+
+
 
     

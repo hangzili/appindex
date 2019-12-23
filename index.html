@@ -53,12 +53,12 @@
     <i class="news-icon-laba"></i>
     <div class="swiper-container swiper-news">
       <div class="swiper-wrapper">
-        <div class="swiper-slide"><a href="news_info.html">热烈祝贺伟义商城成功热烈祝贺伟义商城成功上线热烈祝贺伟义商城成功上线上线</a></div>
-        <div class="swiper-slide"><a href="news_info.html">蓝之蓝股份成公司上市</a></div>
+        <div class="swiper-slide"><a href="#">热烈 庆祝 村口蹲一狼 商城 成功上线</a></div>
+        <div class="swiper-slide">蓝之蓝股份成公司上市</div>
       </div>
       <div class="swiper-pagination"></div>
     </div>
-    <a href="news_list.html" class="newsmore"><i class="news-icon-more"></i></a>
+    <!-- <a href="news_list.html" class="newsmore"><i class="news-icon-more"></i></a> -->
   </div>
   <!--精选推荐-->
   <div class="wy-Module">
@@ -277,7 +277,6 @@
 		    url:'http://47.94.20.198/api/likeApi ',
 		    type : "post",
 		    dataType:'json',
-		    //jsonp: "jsonpCallback",
 		    success:function(msg){
 		        $("#like").empty();
 		        $.each(msg,function(k,v){
@@ -286,7 +285,6 @@
 		        });
 		    }
 		})
+        
     })
-	
-	
 </script>
