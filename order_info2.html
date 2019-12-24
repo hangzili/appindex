@@ -23,15 +23,15 @@
       <div class="weui-media-box__hd proinfo-txt-l" style="width:20px;"><span class="promotion-label-tit"><img src="images/icon_nav_city.png" /></span></div>
       <div class="weui-media-box__bd">
         <a href="address_list.html" class="weui-cell_access">
-          <h4 class="address-name"><span>杜杰</span><span>13854652512</span></h4>
-          <div class="address-txt">宿迁市洋河新区电商产业园105号</div>
+          <h4 class="address-name"><span id="name">杜杰</span><span id="tel">13854652512</span></h4>
+          <div class="address-txt" id="desc">宿迁市洋河新区电商产业园105号</div>
         </a>
       </div>
       <div class="weui-media-box__hd proinfo-txt-l" style="width:16px;"><div class="weui-cell_access"><span class="weui-cell__ft"></span></div></div>
     </div>
   </div>
   <div class="wy-media-box weui-media-box_text">
-    <div class="weui-media-box__bd">
+    <div class="weui-media-box__bd" id="goods">
      <div class="weui-media-box_appmsg ord-pro-list">
         <div class="weui-media-box__hd"><a href="pro_info.html"><img class="weui-media-box__thumb" src="upload/pro3.jpg" alt=""></a></div>
         <div class="weui-media-box__bd">
@@ -116,13 +116,34 @@ $(function(){
         var goods_id = arr['1'];
         //收货地址展示
         $.ajax({
-            url:'',
-            data:{goods_id:goods_id},
+            url:'http://47.94.20.198/api/user_ress',
+            // data:{goods_id:goods_id},
             type:'post',
             dataType:'json',
-            success:function(msgg){
-                
+            success:function(msg){
+                // $.each(msg,function(k,v){
+					$("#name").empty();
+					$("#name").text(msg.address_name);
+					$("#tel").empty();
+					$("#tel").text(msg.tel);
+					$("#desc").empty();
+					$("#desc").text(msg.city);
+				// })
             }
         })
+		//商品展示
+		$.ajax({
+		    url:'http://47.94.20.198/api/id_goods',
+		    data:{goods_id:goods_id},
+		    type : "post",
+		    dataType:'json',
+		    success:function(msg){
+		        $("#goods").empty();
+		        $.each(msg,function(k,v){
+		            var img ='<div class="weui-media-box__bd"><div class="weui-media-box_appmsg ord-pro-list"><div class="weui-media-box__hd"><a href="pro_info.html"><img class="weui-media-box__thumb" src="http://47.94.20.198'+v.g_img+'" alt=""></a></div><div class="weui-media-box__bd"><h1 class="weui-media-box__desc"><a href="pro_info.html" class="ord-pro-link">'+v.g_name+'</a></h1><p class="weui-media-box__desc"><span></span><span></span></p><div class="clear mg-t-10"><div class="wy-pro-pri fl">¥<em class="num font-15">'+v.g_price+'</em></div><div class="pro-amount fr"><span class="font-13">数量×<em class="name">'+v.c_num+'</em></span></div></div></div></div>';
+		            $("#goods").append(img); 
+		        });
+		    }
+		})
     })
 </script>
