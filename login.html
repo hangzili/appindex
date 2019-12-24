@@ -52,17 +52,18 @@
       // data.json="1";
       data. user_name =  user_name;
       data.user_pwd =  user_pwd;
-      console.log(data);
+      // console.log(data);
 
       $.ajax({
         data : data,
         dataType:'json',
         url : "http://47.94.20.198/api/loginApi",
         success:function(res){
+            // alert(res);
           if (res=="登陆成功"){
               //登陆成功后跳转
             alert(res);
-            location.href="#";
+            location.href="mine.html";
           }else{
              //登陆失败
             alert(res);
