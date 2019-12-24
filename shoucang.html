@@ -105,6 +105,7 @@
 </html>
 
 <script>
+    $(document).ready(function(){
 		$.ajax({
 			url:'http://47.94.20.198/api/listApi',
 			type:"post",
@@ -114,30 +115,31 @@
 				// alert(123456);
 				$("#list").empty();
 				$.each(msg,function(k,v){
-					var list =  '<div class="weui-media-box weui-media-box_appmsg"><div class="weui-media-box__hd"><a href="pro_info.html"><img class="weui-media-box__thumb" src="http://47.94.20.198'+v.g_img+'" alt=""></a></div><div class="weui-media-box__bd"><h1 class="weui-media-box__desc"><a href="pro_info.html" class="ord-pro-link">'+v.g_name+'</a></h1><div class="wy-pro-pri">¥<em class="num font-15">'+v.g_price+'</em></div><ul class="weui-media-box__info prolist-ul"><li class="weui-media-box__info__meta"><a href="javascript:;" class="wy-dele"></a></li></ul></div></div>';
+					var list =  '<div class="weui-media-box weui-media-box_appmsg"><div class="weui-media-box__hd"><a href="pro_info.html"><img class="weui-media-box__thumb" src="http://47.94.20.198'+v.g_img+'" alt=""></a></div><div class="weui-media-box__bd"><h1 class="weui-media-box__desc"><a href="pro_info.html" class="ord-pro-link">'+v.g_name+'</a></h1><div class="wy-pro-pri">¥<em class="num font-15">'+v.g_price+'</em></div><ul class="weui-media-box__info prolist-ul"><li class="weui-media-box__info__meta del" goods_id = '+v.goods_id+'><a href="javascript:;" class="wy-dele"></a></li></ul></div></div>';
 					$("#list").append(list);
 				})
 				
 			}
 		})
-
-</script>
-
-
-<!-- <script>
-    $(document).ready(function(){
+    $(document).on('click','.weui-media-box__info__meta',function(){
+        // alert(2);
+        var goods_id = $(this).attr('goods_id');
+        var _this=$(this);
         $.ajax({
-            url:'http://47.94.20.198/api/listApi',
+            url:'http://47.94.20.198/api/coldel',
             type : "post",
+            data:{goods_id:goods_id},
             dataType:'json',
             success:function(msg){
-                 $("#list").empty();
-                $.each(msg,function(k,v){
-        			var tr = '<div class="pro-items"><div class="weui-media-box weui-media-box_appmsg"><div class="weui-media-box__hd"><a href="pro_info.html?goods_id='+v.goods_id+'"><img class="weui-media-box__thumb" src="http://47.94.20.198'+v.g_img+'" alt=""></a></div><div class="weui-media-box__bd"><h1 class="weui-media-box__desc"><a href="pro_info.html?goods_id='+v.goods_id+'" class="ord-pro-link">'+v.g_name+'</a></h1><div class="wy-pro-pri">¥<em class="num font-15">'+v.g_price+'</em></div><ul class="weui-media-box__info prolist-ul"><li class="weui-media-box__info__meta"><a href="javascript:;" class="wy-dele"></a></li></ul></div></div></div>';
-                    $("#list").append(tr);
-                });
+                // location.href="shoucang.html";
+                 _this.parents('.weui-media-box_appmsg').hide();
+           //      $.each(msg,function(k,v){
+        			// var tr = '';
+           //          // $("#list").append(tr);
+           //      });
             }
         })
     })
+    })
 </script>
- -->
+ 

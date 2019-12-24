@@ -226,7 +226,7 @@
     <p class="promotion-foot-menu-label">立即购买</p>
   </a>
 </div>
-<div id="join_cart" class='weui-popup__container popup-bottom' style="z-index:600;">
+<!-- <div id="join_cart" class='weui-popup__container popup-bottom' style="z-index:600;">
   <div class="weui-popup__overlay" style="opacity:1;"></div>
   <div class="weui-popup__modal">
     <div class="modal-content">
@@ -245,7 +245,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <div id="selcet_sku" class='weui-popup__container popup-bottom' style="z-index:600;">
   <div class="weui-popup__overlay" style="opacity:1;"></div>
   <div class="weui-popup__modal">
@@ -308,13 +308,17 @@ $(function(){
 		})
 	})
 </script>
-<script>
+<!-- <script>
       $(document).on("click", "#show-toast", function() {
+        var url = window.location.href;        
+        var arr = url.split('=');        
+        var goods_id = arr['1'];
+        alert(goods__id);
         $.toast("收藏成功", function() {
           console.log('close');
         });
       })
-</script>
+</script> -->
 <script>
       $(document).on("open", ".weui-popup-modal", function() {
         console.log("open popup");
@@ -373,6 +377,19 @@ aniHovertree();
         var url = window.location.href;
         var arr = url.split('=');
         var goods_id = arr['1'];
+        //加入购物车
+        $(".weui-tabbar__item").click(function(){
+            $.ajax({
+                url:'http://47.94.20.198/car/is_login',
+                data:{goods_id:goods_id},
+                type:'post',
+                dataType:'json',
+                success:function(msgg){
+                    alert(msgg);
+                }
+            })
+        })
+        
         //获取商品详情
         $.ajax({
             url:'http://47.94.20.198/api/goods_list',
@@ -413,6 +430,25 @@ aniHovertree();
         $(this).siblings().attr("class","");
         $(this).attr("class","active");
         
+    })
+    $(document).on("click", "#show-toast", function() {
+      var url = window.location.href;
+      var arr = url.split('=');
+      var goods_id = arr['1'];
+      $.ajax({
+          url:'http://47.94.20.198/api/ColleApi',
+          type : "post",
+          data:{goods_id:goods_id},
+          dataType:'json',
+          success:function(msg){
+              $.each(msg,function(k,v){
+                  $.toast("收藏成功", function() {
+                    console.log('close');
+                  });
+              });
+          }
+      })
+      
     })
 </script>
  
